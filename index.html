@@ -3,186 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Alex Kouda | Software Developer &amp; Gameplay Programmer</title>
+    <meta name="description" content="Alexandre Kouda. Software developer and gameplay programmer in London working in C#, C++, Unreal Engine 5 and Unity.">
+    <link rel="icon" href="image.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class = "header">
-        <a href="#" class = "logo"><span>Alex Kouda</span></a>
-        <ul class = "nav-links">
-            <li>
-                <a href="#about">About</a>
-            </li>
-            <li>
-                <a href="#projects">Projects</a>
-            </li>
-            <li>
-                <a href="#experience">Experience</a>
-            </li>
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-        </ul>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-        <i class="fa-solid fa-bars" id="menu-icon"></i>
+    <header class="header" id="header">
+        <a href="#top" class="logo">
+            <span class="logo-mark">AK</span>
+            <span class="logo-text">Alex Kouda</span>
+        </a>
 
-        <button onclick="toItch2()" class="visit-btn">Visit Itch.Io</button>
+        <nav class="nav" id="nav" aria-label="Main">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <a class="btn btn-small btn-outline header-cv" href="Alexandre_Kouda_CV.pdf" target="_blank" rel="noopener">CV</a>
+
+        <button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </header>
-    <section id="about" class="about">
-        <div class ="about-container">
-            <img src="Me 1.jpeg" alt="">
 
-            <div class="info-box">
+    <main id="main">
 
-                <div class="text">
-                    <h3>Hi, I'm</h3>
-                    <h1>Alex Kouda</h1>
-                    <span>Game Engineer</span>
+        <section class="hero" id="top">
+            <canvas class="terrain" id="terrain" aria-hidden="true"></canvas>
+
+            <div class="hero-inner">
+                <p class="eyebrow">Software Developer · Gameplay Programmer · London</p>
+                <h1 class="hero-title">Alexandre<br><span>Kouda</span></h1>
+                <p class="hero-lead">I build gameplay systems, multiplayer networking and data-heavy tools in C# and C++.</p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-solid" href="#projects">See projects</a>
+                    <a class="btn btn-outline" href="Alexandre_Kouda_CV.pdf" target="_blank" rel="noopener">Open CV</a>
                 </div>
 
-                <div class="btn-group">
-                    <div onclick="toCV()" class="btn">See CV</div>
-                </div>
-
-                <div class="socials">
-                    <i class="fa-brands fa-youtube"></i>
-                    <i class="fa-brands fa-linkedin"></i>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <section id="projects" class="projects">
-        <h2 class="section-title">Recent Projects</h2>
-        <div class="projects-grid">
-
-            <div class="project-card">
-
-                <img src="Logo.jpg" alt="">
-                <h3>Top 10 Game Jam Entry</h3>
-                <p>I was part of a two man team that coded and did the art for the game Brewmaster Seige, this was done using Unity and Aseprite. I participated in designing everything from UI, gameplay to
-                    enemy AI. It was fun learning so many new skills and the project lasted around a week.
-                </p>
-                <div class="btn-group">
-                    <div onclick="toItch()" class="btn">Itch.io Page</div>
-                </div>
-
+                <ul class="hero-stats">
+                    <li>
+                        <strong>First class</strong>
+                        <span>MComp Computer Science, Newcastle</span>
+                    </li>
+                    <li>
+                        <strong>44M</strong>
+                        <span>price bars processed by my C# analysis tool</span>
+                    </li>
+                    <li>
+                        <strong>Top 10</strong>
+                        <span>game jam entry, team of two</span>
+                    </li>
+                </ul>
             </div>
 
-            <div class="project-card">
+            <button class="seed" id="seed-btn" type="button" title="Generate new terrain">
+                <span class="seed-label">seed</span>
+                <span class="seed-value" id="seed-value">000000</span>
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+        </section>
 
-                <img src="Cat Maze.png" alt="">
-                <h3>C++ Gameplay project</h3>
-                <p>I was challenged with creatively making a game using c++ in which a cat must find their kittens, focusing only on functionality
-                     I coded a customisable maze with active enemy AI and advanced pathfinding of both enemy and kitten(NPC) characters, alongside this i added
-                     usable advanced physics and mechanics with some basic UI to make it feel like a game. Multiplayer was also explored alongside this and will
-                     be present in future updates. 
-                </p>
-                <div class="btn-group">
-                    <div onclick="toCYt()" class="btn">Live Demo</div>
-                </div>
-
+        <section class="section about" id="about">
+            <div class="section-head reveal">
+                <span class="section-index">01</span>
+                <h2>About</h2>
             </div>
 
-            <div class="project-card">
-
-                <img src="Dissertation.png" alt="">
-                <h3>Procedural Generation Of Biomes In Games</h3>
-                <p>Using unity i programmed an effiecient procedural generated environment, i made it generate multiple environments such as desert, grassy and island biomes.
-                    I supplimented this with extensive research which was the focus of this dissertation project.
-                </p>
-                <div class="btn-group">
-                    <div onclick="toDiss()" class="btn">See Dissertation</div>
-
+            <div class="about-grid">
+                <div class="about-photo reveal">
+                    <img src="Me 1.jpeg" alt="Alex Kouda" loading="lazy">
                 </div>
 
-            </div>
-            <div class="project-card">
+                <div class="about-body reveal">
+                    <p class="about-intro">I'm a first-class Master's graduate in Computer Science (Game Engineering) from Newcastle University, with strong skills in C#, .NET and C++.</p>
+                    <p>My background spans a production C++ codebase in Unreal Engine, networked application development and data-heavy tooling. I like hard technical problems, from client-server synchronisation for a Steam multiplayer game to a C# tool that processes over 44 million records.</p>
+                    <p>Away from the keyboard I competed in judo at national level, and I box, run and play football.</p>
 
-                <img src="Graphics.png" alt="">
-                <h3>Exploring Graphics In Games</h3>
-                <p>I built a visual aesthetic world in order to test the use of shaders and lighting in game Development</p>
-                <div class="btn-group">
-                    <div onclick="toGraphicsYt()" class="btn">Live Demo</div>
+                    <dl class="facts">
+                        <div>
+                            <dt>Education</dt>
+                            <dd>MComp (Hons) Computer Science (Game Engineering), First Class<br>Newcastle University, 2021 – 2025</dd>
+                        </div>
+                        <div>
+                            <dt>A Levels</dt>
+                            <dd>Computer Science (A), Mathematics (A), Business (A)</dd>
+                        </div>
+                        <div>
+                            <dt>Languages</dt>
+                            <dd>English, French (fluent), Spanish (basic)</dd>
+                        </div>
+                        <div>
+                            <dt>Based in</dt>
+                            <dd>London, UK</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <section class="section projects" id="projects">
+            <div class="section-head reveal">
+                <span class="section-index">02</span>
+                <h2>Projects</h2>
+            </div>
+
+            <div class="filters reveal" role="group" aria-label="Filter projects">
+                <button class="filter active" type="button" data-filter="all">All</button>
+                <button class="filter" type="button" data-filter="game">Games</button>
+                <button class="filter" type="button" data-filter="tool">Tools</button>
+                <button class="filter" type="button" data-filter="research">Research</button>
+            </div>
+
+            <div class="projects-grid">
+
+                <article class="project-card reveal" data-category="game">
+                    <div class="project-media project-media-blank">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>Co-developed</span>
+                            <span class="status status-live">Ongoing</span>
+                        </div>
+                        <h3>Multiplayer Networked Game</h3>
+                        <p>An online multiplayer game for Steam. I engineered client-server synchronisation and networked state management from the ground up on Steam networking via FizzySteamworks, fixed multiplayer bugs such as client-side pickup failures and the host disappearing after respawn, and finished the main character's animation system including wall-running and landing detection.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>Unity 6</li>
+                            <li>Mirror</li>
+                            <li>Steamworks</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="tool">
+                    <div class="project-media project-media-blank">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>Personal project</span>
+                            <span>2026</span>
+                        </div>
+                        <h3>Historical Market Data Analysis Tool</h3>
+                        <p>A tool that tests whether simple trading rules hold up on real data. It processes 44 million one-minute price bars with its own LZMA decoder, runs each idea through out-of-sample testing and 20,000-path simulations, and checks itself against synthetic data. The best rule matched its backtest to within one trade over 16 months live on cTrader.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>.NET 8</li>
+                            <li>cTrader</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="research game">
+                    <div class="project-media">
+                        <img src="Dissertation.png" alt="Procedurally generated biome terrain" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>First-class dissertation</span>
+                            <span>May 2024</span>
+                        </div>
+                        <h3>Procedural Generation of Biomes</h3>
+                        <p>A seeded procedural generator that builds an endless 3D world in chunks, with five level-of-detail settings and desert, grassy and island biomes. I profiled each biome and found one variant raised CPU spikes from 0.25 ms to 4 ms and memory from 452 MB to 1.32 GB.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>Unity</li>
+                            <li>Unity Profiler</li>
+                        </ul>
+                        <a class="project-link" href="https://drive.google.com/file/d/1okVDHRQdytqc1sTtHdhVvCZ2LE1suTuO/view?usp=sharing" target="_blank" rel="noopener">Read dissertation <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="game">
+                    <div class="project-media">
+                        <img src="Logo.jpg" alt="Brewmaster Siege logo" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>Game jam, team of two</span>
+                            <span>Sep 2024</span>
+                        </div>
+                        <h3>Brewmaster Siege</h3>
+                        <p>A top 10 game jam entry made with a friend in a week and a half. We shared the code and the art, and I worked on everything from UI and gameplay to enemy AI.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>Unity</li>
+                            <li>Aseprite</li>
+                        </ul>
+                        <a class="project-link" href="https://the-scoofy.itch.io/brewmaster-seige" target="_blank" rel="noopener">Play on itch.io <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="game">
+                    <div class="project-media">
+                        <img src="Cat Maze.png" alt="Cat maze game built in C++" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>University project</span>
+                            <span>C++</span>
+                        </div>
+                        <h3>Cat Maze</h3>
+                        <p>A C++ game where a cat has to find its kittens. I coded a customisable maze with active enemy AI, pathfinding for both enemies and kitten NPCs, physics-driven mechanics and a simple UI.</p>
+                        <ul class="tags">
+                            <li>C++</li>
+                            <li>AI</li>
+                            <li>Pathfinding</li>
+                            <li>Physics</li>
+                        </ul>
+                        <a class="project-link" href="https://youtu.be/ieL8A9HKIfQ" target="_blank" rel="noopener">Watch demo <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="research game">
+                    <div class="project-media">
+                        <img src="Graphics.png" alt="Rendered scene testing shaders and lighting" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>University project</span>
+                            <span>Graphics</span>
+                        </div>
+                        <h3>Exploring Graphics in Games</h3>
+                        <p>A small world built to test shaders and lighting techniques used in game development.</p>
+                        <ul class="tags">
+                            <li>Shaders</li>
+                            <li>Lighting</li>
+                        </ul>
+                        <a class="project-link" href="https://youtu.be/l84rPQ4s50o" target="_blank" rel="noopener">Watch demo <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="tool research">
+                    <div class="project-media project-media-blank">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>Data pipeline</span>
+                            <span>Dec 2025</span>
+                        </div>
+                        <h3>Protein Accuracy Analysis Tool</h3>
+                        <p>A data pipeline that programmatically verifies and cross-references UniProt protein records against NCBI BLAST, EMBL-EBI, InterPro and Ensembl.</p>
+                        <ul class="tags">
+                            <li>Data pipelines</li>
+                            <li>Parsing</li>
+                            <li>Bioinformatics</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="game">
+                    <div class="project-media project-media-blank">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>P4tience Studios</span>
+                            <span class="status">In development</span>
+                        </div>
+                        <h3>Desktop Companion Game</h3>
+                        <p>A stargazing idle game that sits on your desktop while you work or play. It follows real star positions and is built to use as little CPU as possible, with hand-drawn art.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>Unity 6</li>
+                            <li>2D</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="project-card reveal" data-category="tool">
+                    <div class="project-media project-media-blank">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-meta">
+                            <span>P4tience Studios</span>
+                            <span class="status">In development</span>
+                        </div>
+                        <h3>Proximity Voice Chat Plugin</h3>
+                        <p>A drop-in proximity voice chat plugin for Unity games, built as a solo project.</p>
+                        <ul class="tags">
+                            <li>C#</li>
+                            <li>Unity</li>
+                            <li>Networking</li>
+                            <li>Audio</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section experience" id="experience">
+            <div class="section-head reveal">
+                <span class="section-index">03</span>
+                <h2>Experience</h2>
+            </div>
+
+            <ol class="timeline">
+                <li class="timeline-item reveal">
+                    <div class="timeline-date">Feb 2026 – Present</div>
+                    <div class="timeline-body">
+                        <h3>Gameplay Programmer</h3>
+                        <p class="timeline-place">Segritude Ltd, London</p>
+                        <ul>
+                            <li>Responsible for implementing and maintaining gameplay systems on a production C++ codebase in Unreal Engine, working both independently and as part of a team.</li>
+                            <li>Develop AI behaviour as finite state machines and contribute to actor spawning systems.</li>
+                            <li>Work daily in Unreal's C++ object model, including actor and component lifecycle, interfaces and UObject memory management.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="timeline-item reveal">
+                    <div class="timeline-date">Feb 2020</div>
+                    <div class="timeline-body">
+                        <h3>Work Experience Placement</h3>
+                        <p class="timeline-place">HugHub, London</p>
+                        <ul>
+                            <li>Took part in an Agile development team, attending stand-ups, sorting bugs and completing the company's programming entry test.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="timeline-item reveal">
+                    <div class="timeline-date">Oct 2018</div>
+                    <div class="timeline-body">
+                        <h3>Work Experience Placement</h3>
+                        <p class="timeline-place">Segritude, London</p>
+                        <ul>
+                            <li>Supported the IT manager and helped test a new program that packed boxes into the least space to minimise cost.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section skills" id="skills">
+            <div class="section-head reveal">
+                <span class="section-index">04</span>
+                <h2>Skills</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-group reveal">
+                    <h3>Languages</h3>
+                    <ul class="tags">
+                        <li>C# (.NET 8)</li>
+                        <li>C++</li>
+                        <li>C</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Engineering</h3>
+                    <ul class="tags">
+                        <li>Object-oriented design</li>
+                        <li>Client-server networking</li>
+                        <li>Data pipelines and parsing</li>
+                        <li>Statistical testing</li>
+                        <li>CPU and memory profiling</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Gameplay</h3>
+                    <ul class="tags">
+                        <li>AI state machines</li>
+                        <li>Actor spawning</li>
+                        <li>Character animation logic</li>
+                        <li>Procedural generation</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Tools</h3>
+                    <ul class="tags">
+                        <li>Unreal Engine 5</li>
+                        <li>Unity 6</li>
+                        <li>Mirror</li>
+                        <li>Steamworks</li>
+                        <li>Unity Profiler</li>
+                        <li>cTrader</li>
+                        <li>After Effects</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Spoken languages</h3>
+                    <ul class="tags">
+                        <li>English</li>
+                        <li>French (fluent)</li>
+                        <li>Spanish (basic)</li>
+                    </ul>
+                </div>
+                <div class="skill-group reveal">
+                    <h3>Practices</h3>
+                    <ul class="tags">
+                        <li>Agile</li>
+                        <li>Bug triage</li>
+                        <li>Automated testing</li>
+                        <li>Command-line tooling</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="contact-card reveal">
+                <span class="section-index">05</span>
+                <h2>Let's talk</h2>
+                <p>I'm open to software development and gameplay programming roles. Email is the quickest way to reach me.</p>
+
+                <a class="contact-email" href="mailto:alexkouda16business@gmail.com">alexkouda16business@gmail.com</a>
+
+                <div class="contact-actions">
+                    <button class="btn btn-outline" id="copy-email" type="button" data-email="alexkouda16business@gmail.com">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copy email</span>
+                    </button>
+                    <a class="btn btn-outline" href="Alexandre_Kouda_CV.pdf" target="_blank" rel="noopener">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Open CV</span>
+                    </a>
                 </div>
 
+                <ul class="socials">
+                    <li><a href="https://www.linkedin.com/in/alex-kouda-a142a6333" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                    <li><a href="https://github.com/P4ti3nce" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+                    <li><a href="https://itch.io/profile/patienceeditz" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a></li>
+                </ul>
             </div>
+        </section>
 
+    </main>
 
-
-        </div>
-
-
-    </section>
-    <section id="experience" class="experience">
-        <h2 class="section-title">Work Experience</h2>
-        <div class="experience-info">
-
-
-            <div class="grid">
-                <div class="grid-card">
-                    <i class="fa-solid fa-code"></i>
-                    <span>Assistant Senior Software Developer, HugHub, London</span>
-                    <h3>Febuary 2020</h3>
-                    <p>I did the programming entry test for the job to get an insight into the recruitment process.
-                         I participated in day-to-day tasks such as sorting bugs. I assisted and took notes during the company’s weekly stand-up meeting.
-                          I learnt from the senior developer how programming has evolved and developed in recent years into forms such as AGILE.</p>
-
-                </div>
-                <div class="grid-card">
-                    <i class="fa-solid fa-file-code"></i>
-                    <span>Assistant IT Manager, Glinwell Marketing Ltd, St Albans</span>
-                    <h3>October 2018</h3>
-                    <p>I supported the IT manager; I helped oversee and test a new program for loading boxes. 
-                        The new system would sort out boxes in the most efficient amount of space minimising cost. 
-                        I particularly enjoyed being able to watch and learn how to program in html, also how producers ship and sell their goods to retailers. 
-                        In addition, I helped with tasks such as filing and fixing broken machinery.</p>
-
-                </div>
-
-            </div>
-
-            <img src="IMG_3129.jpeg" alt="">
-
-        </div>
-
-    </section>
-
-
-    <section class="contact" id="contact">
-        <div class="input-box">
-
-            <h2 id="section-title">Contact Me</h2>
-
-            <div class="input">
-                <h3>Email: alexkouda16@gmail.com</h3>
-                <h3>University Email: A.Kouda2@newcastle.ac.uk</h3>
-                <h3>Business Email: alexkouda16business@gmail.com</h3>
-            </div>
-
-        </div>
-    </section>
-    <footer>
-
-        <ul>
-            <li>
-                <a href="#about">About</a>
-            </li>
-            <li>
-                <a href="#projects">Projects</a>
-            </li>
-            <li>
-                <a href="#experience">Experience</a>
-            </li>
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-        </ul>
-
-        <p id="copywrite">© All rights Reserved | Alexandre Kouda</p>
+    <footer class="footer">
+        <p>© <span id="year">2026</span> Alexandre Kouda. All rights reserved.</p>
+        <a href="#top">Back to top <i class="fa-solid fa-arrow-up"></i></a>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
