@@ -512,6 +512,7 @@ button {
 .project-media {
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    clip-path: inset(0 round calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0);
     background: var(--bg-soft);
     border-bottom: 1px solid var(--line);
 }
