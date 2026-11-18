@@ -3,6 +3,8 @@ const nav = document.querySelector('#nav')
 const menuBtn = document.querySelector('#menu-btn')
 const navAnchors = document.querySelectorAll('.nav-links a')
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+const interactive = finePointer && !reduceMotion
 
 function setMenu(open) {
     nav.classList.toggle('open', open)
@@ -85,6 +87,73 @@ copyBtn.addEventListener('click', async () => {
 
 document.querySelector('#year').textContent = new Date().getFullYear()
 
+function pointerOffset(el, e) {
+    const rect = el.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    return {
+        x: x,
+        y: y,
+        nx: x / rect.width - 0.5,
+        ny: y / rect.height - 0.5
+    }
+}
+
+function clearVars(el, names) {
+    names.forEach(name => el.style.removeProperty(name))
+}
+
+if (finePointer) {
+    document.querySelectorAll('.project-card, .skill-group, .timeline-body, .facts div, .contact-card').forEach(el => {
+        el.addEventListener('pointermove', e => {
+            const p = pointerOffset(el, e)
+            el.style.setProperty('--mx', p.x + 'px')
+            el.style.setProperty('--my', p.y + 'px')
+        })
+    })
+}
+
+if (interactive) {
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('pointermove', e => {
+            const p = pointerOffset(card, e)
+            card.style.setProperty('--rx', (p.ny * -6).toFixed(2) + 'deg')
+            card.style.setProperty('--ry', (p.nx * 6).toFixed(2) + 'deg')
+            card.style.setProperty('--px', (p.nx * -10).toFixed(1) + 'px')
+            card.style.setProperty('--py', (p.ny * -10).toFixed(1) + 'px')
+        })
+        card.addEventListener('pointerleave', () => {
+            clearVars(card, ['--rx', '--ry', '--px', '--py'])
+        })
+    })
+
+    document.querySelectorAll('.btn, .socials a').forEach(el => {
+        el.addEventListener('pointermove', e => {
+            const p = pointerOffset(el, e)
+            const tx = Math.max(-6, Math.min(6, p.nx * 14))
+            const ty = Math.max(-5, Math.min(5, p.ny * 12))
+            el.style.setProperty('--tx', tx.toFixed(1) + 'px')
+            el.style.setProperty('--ty', ty.toFixed(1) + 'px')
+        })
+        el.addEventListener('pointerleave', () => {
+            clearVars(el, ['--tx', '--ty'])
+        })
+    })
+
+    const aboutPhoto = document.querySelector('.about-photo')
+
+    aboutPhoto.addEventListener('pointermove', e => {
+        const p = pointerOffset(aboutPhoto, e)
+        aboutPhoto.style.setProperty('--rx', (p.ny * -8).toFixed(2) + 'deg')
+        aboutPhoto.style.setProperty('--ry', (p.nx * 8).toFixed(2) + 'deg')
+        aboutPhoto.style.setProperty('--fx', (p.nx * -16).toFixed(1) + 'px')
+        aboutPhoto.style.setProperty('--fy', (p.ny * -16).toFixed(1) + 'px')
+    })
+    aboutPhoto.addEventListener('pointerleave', () => {
+        clearVars(aboutPhoto, ['--rx', '--ry', '--fx', '--fy'])
+    })
+}
+
 const canvas = document.querySelector('#terrain')
 const ctx = canvas.getContext('2d')
 const seedBtn = document.querySelector('#seed-btn')
@@ -99,6 +168,12 @@ let height = 0
 let time = 0
 let running = false
 let frameId = 0
+let pointerX = 0
+let pointerY = 0
+let hillX = 0
+let hillY = 0
+let hill = 0
+let hillTarget = 0
 
 function hash(x, y) {
     const n = Math.sin(x * 127.1 + y * 311.7 + seed * 0.137) * 43758.5453
@@ -123,6 +198,13 @@ function noise(x, y) {
 
 function fbm(x, y) {
     return noise(x, y) * 0.6 + noise(x * 2.1, y * 2.1) * 0.28 + noise(x * 4.3, y * 4.3) * 0.12
+}
+
+function hillHeight(x, y) {
+    if (hill < 0.01) return 0
+    const dx = (x - hillX) / 130
+    const dy = (y - hillY) / 170
+    return Math.exp(-(dx * dx + dy * dy)) * 70 * hill
 }
 
 function resize() {
@@ -150,7 +232,7 @@ function draw() {
         for (let x = -STEP; x <= width + STEP; x += STEP) {
             const edge = Math.min(1, Math.max(0, (x / width - 0.18) * 1.6))
             const n = fbm(x * 0.0042 + time, r * 0.17 - time * 0.6)
-            const y = baseY - Math.pow(n, 1.6) * rowAmp * (0.25 + edge * 0.75)
+            const y = baseY - Math.pow(n, 1.6) * rowAmp * (0.25 + edge * 0.75) - hillHeight(x, baseY)
             if (x === -STEP) ctx.moveTo(x, y)
             else ctx.lineTo(x, y)
         }
@@ -172,6 +254,9 @@ function draw() {
 
 function loop() {
     time += 0.0016
+    hillX += (pointerX - hillX) * 0.08
+    hillY += (pointerY - hillY) * 0.08
+    hill += (hillTarget - hill) * 0.05
     draw()
     frameId = requestAnimationFrame(loop)
 }
@@ -196,6 +281,22 @@ function newSeed() {
 
 seedBtn.addEventListener('click', newSeed)
 window.addEventListener('resize', resize)
+
+if (interactive) {
+    hero.addEventListener('pointermove', e => {
+        const rect = canvas.getBoundingClientRect()
+        pointerX = e.clientX - rect.left
+        pointerY = e.clientY - rect.top
+        if (hill < 0.01) {
+            hillX = pointerX
+            hillY = pointerY
+        }
+        hillTarget = 1
+    })
+    hero.addEventListener('pointerleave', () => {
+        hillTarget = 0
+    })
+}
 
 new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) start()
