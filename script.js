@@ -87,6 +87,33 @@ copyBtn.addEventListener('click', async () => {
 
 document.querySelector('#year').textContent = new Date().getFullYear()
 
+const videoPlay = document.querySelector('#video-play')
+const videoThumb = document.querySelector('#video-thumb')
+
+function checkThumb() {
+    if (videoThumb.naturalWidth > 0 && videoThumb.naturalWidth < 200) {
+        videoThumb.src = 'https://i.ytimg.com/vi/' + videoPlay.dataset.video + '/hqdefault.jpg'
+    }
+}
+
+videoThumb.addEventListener('load', checkThumb)
+if (videoThumb.complete) checkThumb()
+
+videoPlay.addEventListener('click', () => {
+    const iframe = document.createElement('iframe')
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoPlay.dataset.video + '?autoplay=1&rel=0'
+    iframe.title = 'Featured edit by PatienceEditz'
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'
+    iframe.allowFullscreen = true
+    videoPlay.replaceWith(iframe)
+})
+
+const renderFrame = document.querySelector('#render-frame')
+
+renderFrame.addEventListener('click', () => {
+    renderFrame.classList.toggle('show-alt')
+})
+
 function pointerOffset(el, e) {
     const rect = el.getBoundingClientRect()
     const x = e.clientX - rect.left
@@ -104,7 +131,7 @@ function clearVars(el, names) {
 }
 
 if (finePointer) {
-    document.querySelectorAll('.project-card, .skill-group, .timeline-body, .facts div, .contact-card').forEach(el => {
+    document.querySelectorAll('.project-card, .skill-group, .timeline-body, .facts div, .feature-card, .contact-card').forEach(el => {
         el.addEventListener('pointermove', e => {
             const p = pointerOffset(el, e)
             el.style.setProperty('--mx', p.x + 'px')
