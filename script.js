@@ -99,13 +99,52 @@ function checkThumb() {
 videoThumb.addEventListener('load', checkThumb)
 if (videoThumb.complete) checkThumb()
 
-videoPlay.addEventListener('click', () => {
+function makePlayer(id) {
     const iframe = document.createElement('iframe')
-    iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoPlay.dataset.video + '?autoplay=1&rel=0'
-    iframe.title = 'Featured edit by PatienceEditz'
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0'
+    iframe.title = 'Edit by PatienceEditz'
     iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'
     iframe.allowFullscreen = true
-    videoPlay.replaceWith(iframe)
+    return iframe
+}
+
+videoPlay.addEventListener('click', () => {
+    videoPlay.replaceWith(makePlayer(videoPlay.dataset.video))
+})
+
+function makeTikTok(id) {
+    const iframe = document.createElement('iframe')
+    iframe.src = 'https://www.tiktok.com/player/v1/' + id + '?autoplay=1'
+    iframe.title = 'Pinned TikTok edit by P4tience'
+    iframe.allow = 'autoplay; fullscreen'
+    return iframe
+}
+
+const videoModal = document.querySelector('#video-modal')
+const modalFrame = document.querySelector('#modal-frame')
+
+function openModal(player, vertical) {
+    modalFrame.replaceChildren(player)
+    videoModal.classList.toggle('is-vertical', vertical)
+    videoModal.showModal()
+}
+
+document.querySelectorAll('.edit-card').forEach(card => {
+    card.addEventListener('click', () => openModal(makePlayer(card.dataset.video), false))
+})
+
+const tiktokCard = document.querySelector('.tiktok-card')
+
+tiktokCard.addEventListener('click', () => openModal(makeTikTok(tiktokCard.dataset.tiktok), true))
+
+document.querySelector('#modal-close').addEventListener('click', () => videoModal.close())
+
+videoModal.addEventListener('click', e => {
+    if (e.target === videoModal) videoModal.close()
+})
+
+videoModal.addEventListener('close', () => {
+    modalFrame.replaceChildren()
 })
 
 const renderFrame = document.querySelector('#render-frame')
@@ -141,7 +180,7 @@ if (finePointer) {
 }
 
 if (interactive) {
-    document.querySelectorAll('.project-card').forEach(card => {
+    document.querySelectorAll('.project-card, .edit-card').forEach(card => {
         card.addEventListener('pointermove', e => {
             const p = pointerOffset(card, e)
             card.style.setProperty('--rx', (p.ny * -6).toFixed(2) + 'deg')

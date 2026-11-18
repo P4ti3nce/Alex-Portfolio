@@ -436,7 +436,7 @@
                 </div>
 
                 <div class="feature-info">
-                    <span class="feature-label">Video editing</span>
+                    <span class="feature-label">Video editing · Featured: Stopwatch</span>
                     <div class="channel">
                         <img src="passion/logo.jpg" alt="PatienceEditz logo" loading="lazy">
                         <div>
@@ -444,8 +444,12 @@
                             <span>Anime, cartoon and movie edits</span>
                         </div>
                     </div>
-                    <p>I cut edits in After Effects, timing every cut, effect and transition to the music. This one has a bit of everything I do.</p>
-                    <p class="feature-stat"><strong>300k+</strong> views on my top TikTok edits</p>
+                    <p>I cut edits in After Effects, timing every cut, effect and transition to the music. Stopwatch, my Arcane edit here, has a bit of everything I do.</p>
+                    <ul class="edit-stats">
+                        <li><strong>2M+</strong><span>views on my pinned TikTok</span></li>
+                        <li><strong>532K</strong><span>likes on TikTok</span></li>
+                        <li><strong>44K</strong><span>views on my top YouTube edit</span></li>
+                    </ul>
                     <ul class="tags">
                         <li>After Effects</li>
                         <li>Motion graphics</li>
@@ -463,6 +467,88 @@
                     </div>
                 </div>
             </article>
+
+            <div class="edits-head reveal">
+                <h3>More edits</h3>
+                <span>Pick one to watch it here</span>
+            </div>
+
+            <div class="edits-grid">
+                <button class="tiktok-card reveal" type="button" data-tiktok="7551581279716756758" aria-label="Play my pinned TikTok edit">
+                    <img class="tiktok-logo" src="passion/logo.jpg" alt="" loading="lazy">
+                    <span class="edit-type"><i class="fa-brands fa-tiktok"></i> Pinned on TikTok</span>
+                    <strong class="tiktok-views">2M+</strong>
+                    <span class="tiktok-sub">views on a single edit</span>
+                    <span class="card-cta">Watch it here <i class="fa-solid fa-play"></i></span>
+                </button>
+
+                <button class="edit-card reveal" type="button" data-video="v9_f43KjH8c" aria-label="Play Blue, a motion graphics edit">
+                    <span class="edit-media">
+                        <img src="https://i.ytimg.com/vi/v9_f43KjH8c/hqdefault.jpg" alt="" loading="lazy">
+                        <span class="edit-play"><i class="fa-solid fa-play"></i></span>
+                    </span>
+                    <span class="edit-body">
+                        <span class="edit-type">Motion graphics</span>
+                        <span class="edit-title">Blue</span>
+                        <span class="edit-meta">Laufey, Carousel</span>
+                    </span>
+                </button>
+
+                <button class="edit-card reveal" type="button" data-video="lnl_DHjOAm4" aria-label="Play Not Quite My Tempo, a film and anime edit">
+                    <span class="edit-media edit-cover">
+                        <span class="cover-title">Not Quite<br>My Tempo</span>
+                        <span class="edit-play"><i class="fa-solid fa-play"></i></span>
+                    </span>
+                    <span class="edit-body">
+                        <span class="edit-type">Film x anime</span>
+                        <span class="edit-title">Not Quite My Tempo</span>
+                        <span class="edit-meta">Whiplash x Hibike! Euphonium</span>
+                    </span>
+                </button>
+
+                <button class="edit-card reveal" type="button" data-video="HbWkiPL8TOk" aria-label="Play Do I Look Like Her, a storytelling edit">
+                    <span class="edit-media">
+                        <img src="https://i.ytimg.com/vi/HbWkiPL8TOk/hqdefault.jpg" alt="" loading="lazy">
+                        <span class="edit-play"><i class="fa-solid fa-play"></i></span>
+                    </span>
+                    <span class="edit-body">
+                        <span class="edit-type">Storytelling</span>
+                        <span class="edit-title">Do I Look Like Her?</span>
+                        <span class="edit-meta">Dandadan</span>
+                    </span>
+                </button>
+
+                <button class="edit-card reveal" type="button" data-video="uW5c3ixZQzw" aria-label="Play I Don't Blame You, a motion graphics and anime edit">
+                    <span class="edit-media">
+                        <img src="https://i.ytimg.com/vi/uW5c3ixZQzw/hqdefault.jpg" alt="" loading="lazy">
+                        <span class="edit-play"><i class="fa-solid fa-play"></i></span>
+                    </span>
+                    <span class="edit-body">
+                        <span class="edit-type">Motion graphics x anime</span>
+                        <span class="edit-title">I Don't Blame You</span>
+                        <span class="edit-meta">Baby Keem, No Blame</span>
+                    </span>
+                </button>
+
+                <button class="edit-card reveal" type="button" data-video="BDSQXcrncDM" aria-label="Play The King of Pop, my most viewed YouTube edit">
+                    <span class="edit-media edit-cover edit-cover-gold">
+                        <span class="cover-title">The King<br>of Pop</span>
+                        <span class="edit-badge">44K views</span>
+                        <span class="edit-play"><i class="fa-solid fa-play"></i></span>
+                    </span>
+                    <span class="edit-body">
+                        <span class="edit-type">Most viewed</span>
+                        <span class="edit-title">The King of Pop</span>
+                        <span class="edit-meta">Billie Jean</span>
+                    </span>
+                </button>
+
+                <a class="edit-more reveal" href="https://www.youtube.com/@PatienceEditz/videos" target="_blank" rel="noopener">
+                    <strong>287</strong>
+                    <span>videos on the channel</span>
+                    <span class="card-cta">See them all <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </div>
 
             <article class="feature-card feature-card-flip reveal">
                 <div class="feature-info">
@@ -519,6 +605,13 @@
         <p>© <span id="year">2026</span> Alexandre Kouda. All rights reserved.</p>
         <a href="#top">Back to top <i class="fa-solid fa-arrow-up"></i></a>
     </footer>
+
+    <dialog class="video-modal" id="video-modal" aria-label="Edit player">
+        <div class="modal-frame" id="modal-frame"></div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close video">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </dialog>
 
     <script src="script.js"></script>
 </body>
